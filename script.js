@@ -24,7 +24,9 @@ const bouncBall = async(pointX, pointY) => {
     BALL.style.transition = "0.1s";
     BALL.style.transform = "scaleY(0.6)";
     await timeOut(100);
-    BALL.style.translate = `${pointX}px -30vh`;
+    // BALL.style.translate = `${pointX}px -30vh`;
+    const bounc1 = Math.max(0.09 * SCREEN_HEIGHT, pointY - pointY/4);
+    BALL.style.translate = `${pointX}px -${bounc1}px`;
     BALL.style.transform = "scaleY(1)";
     BALL.style.transition = "0.3s";
     await timeOut(300);
@@ -35,7 +37,9 @@ const bouncBall = async(pointX, pointY) => {
     BALL.style.transition = "0.1s";
     BALL.style.transform = "scaleY(0.6)";
     await timeOut(100);
-    BALL.style.translate = `${pointX}px -25vh`;
+    // BALL.style.translate = `${pointX}px -25vh`;
+    const bounc2 = Math.max(0.09 * SCREEN_HEIGHT, bounc1 - bounc1/4);
+    BALL.style.translate = `${pointX}px -${bounc2}px`;
     BALL.style.transform = "scaleY(1)";
     BALL.style.transition = "0.3s";
     await timeOut(300);
@@ -46,7 +50,10 @@ const bouncBall = async(pointX, pointY) => {
     BALL.style.transition = "0.1s";
     BALL.style.transform = "scaleY(0.6)";
     await timeOut(100);
-    BALL.style.translate = `${pointX}px -15vh`;
+    // BALL.style.translate = `${pointX}px -15vh`;
+    const bounc3 = Math.max(0.09 * SCREEN_HEIGHT, bounc2 - bounc2/4);
+    console.log(`this is bounce3: ${bounc3}`);
+    BALL.style.translate = `${pointX}px -${bounc3}px`;
     BALL.style.transform = "scaleY(1)";
     BALL.style.transition = "0.2s";
     await timeOut(200);
@@ -72,12 +79,12 @@ document.getElementById('board').addEventListener('click', async (event) => {
     BALL.style.transitionTimingFunction = "ease-out";
     await timeOut(300);
     BALL.style.removeProperty('transform');
-    const moveX = parseInt(BALL.getBoundingClientRect().left) - BALL_WIDTH / 2;
     
+    document.querySelector('.board').style.zIndex = 2;
     document.querySelector('h1').style.display = 'block';
     document.querySelector('h1').classList.add('h1-animation');
 
-    bouncBall(0, null);
+    bouncBall(0, SCREEN_WIDTH*0.23);
 })
 
 document.getElementById('white-space').addEventListener('click', async (event) => {
@@ -91,21 +98,22 @@ document.getElementById('white-space').addEventListener('click', async (event) =
     const cursorY = event.clientY;
     const moveX = cursorX - ballX - BALL_WIDTH / 2;
     const moveY = cursorY - ballY - BALL_WIDTH / 2;
-
-
+    const reverseCursorY = document.getElementById('white-space').offsetHeight - cursorY;
+    document.querySelector('.board').style.zIndex = 2;
+    document.querySelector('.base').style.zIndex = 2;
     console.log(`movex:${moveX}, moveY:${moveY}`);
     console.log(`Ball: (${ballX}, ${ballY})`);
     console.log(`Cursor: (${cursorX}, ${cursorY})`);
 
     
-    BALL.style.scale = 0.4;
+    BALL.style.scale = 0.3;
     BALL.style.translate = `${moveX}px ${moveY}px`;
-    BALL.style.transition = "0.7s"; //easy? fadein? fadeout?
+    BALL.style.transition = "0.6s"; //easy? fadein? fadeout?
     // BALL.style.transitionTimingFunction = "ease-out";
-    await timeOut(700);
+    await timeOut(600);
     
     
-    bouncBall(moveX, moveY);
+    bouncBall(moveX, reverseCursorY+BALL_WIDTH/2);
     // centerBall();
 }, { capture: true })
 
@@ -120,6 +128,8 @@ const centerBall = () => {
     BALL.style.removeProperty('transform');
     document.querySelector('h1').style.display = 'none';
     document.querySelector('h1').classList.remove('h1-animation');
+    document.querySelector('.board').style.zIndex = 0;
+    document.querySelector('.base').style.zIndex = 0;
     BALL.style.left = SCREEN_WIDTH / 2 - BALL.offsetWidth / 2;
     BALL.style.top = 0.80 * SCREEN_HEIGHT;
     IN_ANIMATION = false;
