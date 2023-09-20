@@ -1,0 +1,76 @@
+body{
+    padding:0;
+    margin:0;
+}
+
+.world{
+    display: flex;
+    position:relative;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.white-space{
+    background-color: white;
+    width: 100%;
+    flex-basis: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hoop{
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    left: 45.5vw;
+    top: 33vh;
+}
+
+.ground{
+    background-color: #00519D;
+    width: 100%;
+    flex-basis: 20vh;
+}
+
+.board{
+    margin-bottom: -6.2vh;
+}
+
+.base{
+    width: 0.4vw;
+    height:35vh;
+    /* margin-left: 4.3vw; */
+    background-color: #00519D;
+}
+
+.ball{
+    position:absolute;
+    height:7vw;
+    width:7vw;
+    bottom:0px; 
+}
+h1{
+    width: 100%;
+    margin-top: 10vh;
+    text-align: center;
+    font-size:10rem;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: none;
+    position: absolute;
+    top:0;
+    z-index: 0;
+}
+
+.h1-animation{
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
